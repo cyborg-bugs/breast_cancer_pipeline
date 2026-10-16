@@ -1,0 +1,15 @@
+# Entorno virtual de Python
+env/
+.venv/
+
+# Registros y experimentos de MLflow
+mlruns/
+outputs/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Carpetas ocultas del sistema o IDEs
+.ipynb_checkpoints/
+.DS_Store

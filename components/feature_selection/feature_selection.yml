@@ -1,0 +1,23 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: feature_selection
+display_name: Feature Selection
+version: 1.0.2
+type: command
+
+inputs:
+  processed_data_path:
+    type: uri_folder
+    optional: false
+
+outputs:
+  selected_features_path:
+    type: uri_file
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python feature_selection.py
+  --processed_data_path ${{inputs.processed_data_path}}
+  --selected_features_path ${{outputs.selected_features_path}}
+

@@ -1,0 +1,43 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: rf_training
+display_name: Random Forest Model Training
+version: 1.0.2
+type: command
+
+inputs:
+  X_train_path:
+    type: uri_folder
+    optional: false
+  X_test_path:
+    type: uri_folder
+    optional: false
+  y_train_path:
+    type: uri_folder
+    optional: false
+  y_test_path:
+    type: uri_folder
+    optional: false
+  preprocessor_path:
+    type: uri_file
+    optional: false
+  selected_features_path:
+    type: uri_file
+    optional: false
+
+outputs:
+  rf_model_output_path:
+    type: mlflow_model
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python rf_training.py
+  --X_train_path ${{inputs.X_train_path}}
+  --X_test_path ${{inputs.X_test_path}}
+  --y_train_path ${{inputs.y_train_path}}
+  --y_test_path ${{inputs.y_test_path}}
+  --rf_model_output_path ${{outputs.rf_model_output_path}}
+  --preprocessor_path ${{inputs.preprocessor_path}}
+  --selected_features_path ${{inputs.selected_features_path}}
+

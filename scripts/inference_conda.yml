@@ -1,0 +1,13 @@
+name: inference_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - pandas
+    - numpy
+    - scikit-learn
+    - mlflow
+    - azureml-defaults # Para funcionalidad básica en Azure ML

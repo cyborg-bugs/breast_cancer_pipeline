@@ -1,0 +1,34 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: model_comparison
+display_name: Model Comparison V2
+version: 1.0.5
+type: command
+
+inputs:
+  svm_model_path:
+    type: mlflow_model
+    optional: false
+  rf_model_path:
+    type: mlflow_model
+    optional: false
+  test_data_path:
+    type: uri_folder
+    optional: false
+
+outputs:
+  best_model_run_id_path:
+    type: uri_folder
+  comparison_results_path:
+    type: uri_folder
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python model_comparison.py
+  --svm_model_path ${{inputs.svm_model_path}}
+  --rf_model_path ${{inputs.rf_model_path}}
+  --test_data_path ${{inputs.test_data_path}}
+  --best_model_run_id_path ${{outputs.best_model_run_id_path}}
+  --comparison_results_path ${{outputs.comparison_results_path}}
+

@@ -1,0 +1,27 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: register_best_model_v2
+display_name: Register Best Model V3
+version: 1.0.6
+type: command
+
+inputs:
+  best_model_run_id_path:
+    type: uri_folder # Expecting a folder containing the run ID file and potentially comparison results
+    optional: false
+  model_name:
+    type: string
+    optional: false
+
+outputs:
+  registered_model_output_path:
+    type: uri_folder
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python register_best_model.py
+  --best_model_run_id_path ${{inputs.best_model_run_id_path}}
+  --model_name ${{inputs.model_name}}
+  --registered_model_output_path ${{outputs.registered_model_output_path}}
+

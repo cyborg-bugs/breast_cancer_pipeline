@@ -1,0 +1,32 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: split_data
+display_name: Split Data
+version: 1.0.2
+type: command
+
+inputs:
+  encoded_scaled_data_path:
+    type: uri_folder
+    optional: false
+
+outputs:
+  X_train_path:
+    type: uri_folder
+  X_test_path:
+    type: uri_folder
+  y_train_path:
+    type: uri_folder
+  y_test_path:
+    type: uri_folder
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python split_data.py
+  --encoded_scaled_data_path ${{inputs.encoded_scaled_data_path}}
+  --X_train_path ${{outputs.X_train_path}}
+  --X_test_path ${{outputs.X_test_path}}
+  --y_train_path ${{outputs.y_train_path}}
+  --y_test_path ${{outputs.y_test_path}}
+

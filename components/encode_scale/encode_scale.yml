@@ -1,0 +1,30 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: encode_scale
+display_name: Encode and Scale Features
+version: 1.0.3
+type: command
+
+inputs:
+  processed_data_path:
+    type: uri_folder
+    optional: false
+  selected_features_path:
+    type: uri_file
+    optional: false
+
+outputs:
+  encoded_scaled_data_path:
+    type: uri_folder
+  preprocessor_output_path:
+    type: uri_file
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python encode_scale.py
+  --processed_data_path ${{inputs.processed_data_path}}
+  --selected_features_path ${{inputs.selected_features_path}}
+  --encoded_scaled_data_path ${{outputs.encoded_scaled_data_path}}
+  --preprocessor_output_path ${{outputs.preprocessor_output_path}}
+

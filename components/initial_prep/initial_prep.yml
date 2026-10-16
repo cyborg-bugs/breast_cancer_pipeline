@@ -1,0 +1,23 @@
+
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: initial_prep
+display_name: Initial Data Preparation
+version: 1.0.2
+type: command
+
+inputs:
+  dataset_path:
+    type: uri_file
+    optional: false
+
+outputs:
+  processed_data_path:
+    type: uri_file
+
+code: ./
+environment: azureml:breast_cancer_env@latest
+command: >-
+  python initial_prep.py
+  --dataset_path ${{inputs.dataset_path}}
+  --processed_data_path ${{outputs.processed_data_path}}
+
